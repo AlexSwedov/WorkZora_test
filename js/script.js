@@ -1,5 +1,67 @@
+	// зміна мов в хедері ---------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
-	
+	const dropdown = document.querySelector('.language-dropdown');
+	const toggleButton = dropdown.querySelector('.language-dropdown__toggle');
+	const languageMenu = dropdown.querySelector('.language-dropdown__menu');
+	const currentFlag = toggleButton.querySelector('.current-flag');
+	const menuItems = languageMenu.querySelectorAll('li');
+
+	// Функція для перемикання видимості меню
+	function toggleMenu() {
+		const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true';
+		toggleButton.setAttribute('aria-expanded', !isExpanded);
+		languageMenu.setAttribute('aria-hidden', isExpanded); // Перемикаємо aria-hidden
+	}
+
+	// Обробник кліку на кнопці-перемикачі
+	toggleButton.addEventListener('click', (event) => {
+		event.stopPropagation(); // Запобігаємо закриттю, якщо клік всередині
+		toggleMenu();
+	});
+
+	// Обробник кліку на пункті меню
+	menuItems.forEach(item => {
+		item.addEventListener('click', () => {
+			const selectedLang = item.dataset.lang; // Отримуємо код мови
+			const selectedFlagSrc = item.querySelector('img').src; // Отримуємо шлях до прапора
+
+			// Оновлюємо прапор на кнопці
+			currentFlag.src = selectedFlagSrc;
+			currentFlag.alt = item.textContent.trim(); // Оновлюємо alt-текст
+
+			// Можна додати клас 'selected' для візуалізації
+			menuItems.forEach(li => li.classList.remove('selected'));
+			item.classList.add('selected');
+
+			// Закриваємо меню
+			toggleMenu();
+
+			// Тут ви можете додати логіку для фактичної зміни мови на сторінці
+			// наприклад: console.log('Змінити мову на:', selectedLang);
+			// Або викликати функцію changeLanguage(selectedLang);
+			console.log(`Мова змінена на: ${selectedLang}`);
+		});
+	});
+
+	// Закриття меню при кліку поза ним
+	document.addEventListener('click', (event) => {
+		if (!dropdown.contains(event.target)) {
+			toggleButton.setAttribute('aria-expanded', 'false');
+			languageMenu.setAttribute('aria-hidden', 'true');
+		}
+	});
+
+	// Ініціалізація: встановлення початкової вибраної мови (наприклад, української)
+	// Шукаємо початковий елемент і додаємо йому клас 'selected'
+	const initialLang = document.querySelector('.language-dropdown__menu li[data-lang="uk"]');
+	if (initialLang) {
+		initialLang.classList.add('selected');
+		currentFlag.src = initialLang.querySelector('img').src;
+		currentFlag.alt = initialLang.textContent.trim();
+	}
+});
+
+document.addEventListener('DOMContentLoaded', () => {
 	// випадаюче меню в хедері ----------------------------------------------------------------------------
 	const dropdownItems = document.querySelectorAll('.menu__item-dropdown');
 
@@ -70,4 +132,24 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		});
 	});
+	
+	// безперервний рядок marquee ---------------------------------------------------------------------------------
+	const marquee = document.querySelector('.company__marquee');
+	const content = marquee.querySelector('.company__marquee_inner');
+
+	const clone1 = content.cloneNode(true);
+	marquee.appendChild(clone1);
+	const clone2 = content.cloneNode(true);
+	marquee.appendChild(clone2);
+
+	function updateAnimationDuration() {
+		const contentWidth = content.offsetWidth;
+		const speed = 20;
+		const duration = contentWidth / speed;
+		
+		marquee.style.setProperty('--marquee-duration', `${duration}s`);
+	}
+
+	updateAnimationDuration(); 
+	window.addEventListener('resize', updateAnimationDuration);
 });
