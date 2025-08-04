@@ -59,9 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		currentFlag.src = initialLang.querySelector('img').src;
 		currentFlag.alt = initialLang.textContent.trim();
 	}
-});
 
-document.addEventListener('DOMContentLoaded', () => {
 	// випадаюче меню в хедері ----------------------------------------------------------------------------
 	const dropdownItems = document.querySelectorAll('.menu__item-dropdown');
 
