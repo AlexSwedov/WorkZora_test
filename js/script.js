@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// Ініціалізація: встановлення початкової вибраної мови (наприклад, української)
 	// Шукаємо початковий елемент і додаємо йому клас 'selected'
-	const initialLang = document.querySelector('.language-dropdown__menu li[data-lang="uk"]');
+	const initialLang = document.querySelector('.language-dropdown__menu li[data-lang="en"]');
 	if (initialLang) {
 		initialLang.classList.add('selected');
 		currentFlag.src = initialLang.querySelector('img').src;
