@@ -1,5 +1,5 @@
-	// зміна мов в хедері ---------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
+	// зміна мов в хедері ---------------------------------------------------------------------------------
 	const dropdown = document.querySelector('.language-dropdown');
 	const toggleButton = dropdown.querySelector('.language-dropdown__toggle');
 	const languageMenu = dropdown.querySelector('.language-dropdown__menu');
@@ -150,4 +150,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	updateAnimationDuration(); 
 	window.addEventListener('resize', updateAnimationDuration);
+	
+	// перший слайдер ---------------------------------------------------------------------------------------------
+	
+	const firstSlider = new Swiper(".first-slider__slider", {
+		slidesPerView: 1,
+      spaceBetween: 30,
+		loop: true,
+		// mousewheel: true,
+		keyboard: {
+			enabled: true,
+      },
+		navigation: {
+			nextEl: ".first-slider__next",
+			prevEl: ".first-slider__prev",
+		},
+	});
+	
+	// другий слайдер ---------------------------------------------------------------------------------------------
+	
+	const secondSlider = new Swiper(".second-slider__slider", {
+		slidesPerView: 1,
+      spaceBetween: 30,
+		loop: true,
+		// mousewheel: true,
+		keyboard: {
+			enabled: true,
+      },
+		navigation: {
+			nextEl: ".second-slider__next",
+			prevEl: ".second-slider__prev",
+		},
+	});
+
+
+	// аккордеон --------------------------------------------------------------------------------------------------
+
+	const accordions = document.getElementsByClassName("accordion");
+
+	for (var i = 0; i < accordions.length; i++) {
+		accordions[i].addEventListener("click", function() {
+			const isActive = this.classList.contains("active");
+
+			// Спочатку закриваємо всі панелі
+			for (var j = 0; j < accordions.length; j++) {
+				const panelToClose = accordions[j].nextElementSibling;
+				accordions[j].classList.remove("active");
+				panelToClose.style.maxHeight = null;
+			}
+
+			// Якщо поточна вкладка не була активною, відкриваємо її
+			if (!isActive) {
+				const panelToOpen = this.nextElementSibling;
+				this.classList.add("active");
+				panelToOpen.style.maxHeight = panelToOpen.scrollHeight + "px";
+			}
+		});
+	}
+	
 });
