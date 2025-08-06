@@ -343,7 +343,7 @@ body {
 .header .sub-menu .tab-item-title {
   font-size: 14px;
   text-align: center;
-  color: #FFFFFF;
+  color: #ffffff;
   padding: 8px;
 }
 .header .sub-menu .sub-menu-links {
@@ -357,13 +357,13 @@ body {
   font-weight: 600;
   line-height: 162.5%;
   /* 26/16 */
-  color: #FFFFFF;
+  color: #ffffff;
   margin-bottom: 12px;
 }
 .header .sub-menu .sub-menu-links a {
   line-height: 170.5%;
   /* 34/16 */
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .header .sub-menu .sub-menu-links a:last-child {
   margin-top: 28px;
@@ -410,8 +410,8 @@ body {
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: white;
-  border: 1px solid #ccc;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   z-index: 1000;
@@ -441,7 +441,7 @@ body {
 }
 .fullscreen {
   position: relative;
-  background-image: url("../img/jpg/fullscreen.jpg");
+  background-image: url("../../../img/jpg/fullscreen.jpg");
   background-position: 100% 0;
   background-repeat: no-repeat;
   background-size: cover;
@@ -492,16 +492,29 @@ body {
   font-size: 14px;
   line-height: 21px;
   text-align: center;
-  color: #ffffff;
   padding: 8px 12px;
   box-sizing: border-box;
   border-radius: 20px;
-  border: 1px solid #ffffff;
-  background: transparent;
+  transition: all 0.3s ease-in;
 }
-.fullscreen__button:hover {
+.fullscreen .button-left {
   color: #333333;
-  background: linear-gradient(93.17deg, #E1E1E1 0%, #FFFFFF 100%);
+  background: #ffffff;
+  border: 1px solid #ffffff;
+}
+.fullscreen .button-left:hover {
+  color: #ffffff;
+  background: #8CBC68;
+  border: 1px solid #8CBC68;
+}
+.fullscreen .button-right {
+  color: #ffffff;
+  background: transparent;
+  border: 1px solid #ffffff;
+}
+.fullscreen .button-right:hover {
+  color: #000000;
+  border: 1px solid #000000;
 }
 .fullscreen__autor {
   text-align: right;
@@ -513,15 +526,20 @@ body {
   align-items: center;
   gap: 4px;
   color: #ffffff;
+  transition: all 0.3s ease-in;
 }
 .fullscreen__autor a img {
   width: 14px;
   height: 14px;
-  border: 1px solid #FFFFFF;
+  border: 1px solid #ffffff;
   border-radius: 50%;
+  transition: all 0.3s ease-in;
 }
 .fullscreen__autor a:hover {
-  text-decoration: underline;
+  color: #7EA310;
+}
+.fullscreen__autor a:hover img {
+  border: 1px solid #7EA310;
 }
 
 .company {
@@ -573,7 +591,7 @@ body {
   }
 }
 .real {
-  background-image: url("../img/png/real-bg-desctop.png");
+  background-image: url("../../../img/png/real-bg-desctop.png");
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: cover;
@@ -646,7 +664,7 @@ body {
 }
 .first-slider {
   background-color: #333333;
-  background-image: url("../img/png/first-slider-bg.png");
+  background-image: url("../../../img/png/first-slider-bg.png");
   background-repeat: no-repeat;
   background-position: 100% 0;
 }
@@ -737,7 +755,7 @@ body {
 }
 
 .bigBlock {
-  background-image: url("../img/png/bigBlock-bg-desctop.png");
+  background-image: url("../../../img/png/bigBlock-bg-desctop.png");
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: cover;
@@ -806,7 +824,7 @@ body {
 
 .work {
   background-color: #7EA310;
-  background-image: url("../img/png/work-bg-desctop.png");
+  background-image: url("../../../img/png/work-bg-desctop.png");
   background-repeat: no-repeat;
   background-position: 0 100%;
 }
@@ -902,6 +920,9 @@ body {
   line-height: 24px;
   color: #000000;
 }
+.top__flex_item:hover img {
+  box-shadow: 0px 0px 20px #7EA310;
+}
 .top__flex_link {
   flex: calc(20% - 24px);
   display: flex;
@@ -921,7 +942,7 @@ body {
   stroke: #216B52;
 }
 .projects {
-  background-image: url("../img/png/projects-top-bg.png"), url("../img/png/projects-bottom-bg.png");
+  background-image: url("../../../img/png/projects-top-bg.png"), url("../../../img/png/projects-bottom-bg.png");
   background-repeat: no-repeat;
   background-position: 0 0, 100% 100%;
 }
@@ -954,6 +975,10 @@ body {
   padding-left: 32px;
   padding-right: 24px;
   padding-block: 24px;
+  transition: all 0.3s ease-in;
+}
+.projects__item:hover {
+  box-shadow: 0px 0px 20px #7EA310;
 }
 .projects__item_title {
   display: flex;
@@ -1018,7 +1043,7 @@ body {
 
 .quations {
   background-color: #7EA310;
-  background-image: url("../img/png/work-bg-desctop.png");
+  background-image: url("../../../img/png/work-bg-desctop.png");
   background-repeat: no-repeat;
   background-position: 0 100%;
 }
