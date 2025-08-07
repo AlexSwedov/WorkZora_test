@@ -1,4 +1,51 @@
+
 document.addEventListener('DOMContentLoaded', () => {
+	// зміна кольорової теми ------------------------------------------------------------------------------
+	const themeToggle = document.getElementById('theme-toggle');
+	const htmlElement = document.documentElement;
+	const logoImage = document.getElementById('logo-image');
+
+	// Функція для застосування теми
+	function applyTheme(theme) {
+		if (theme === 'dark') {
+			htmlElement.setAttribute('data-theme', 'dark');
+			logoImage.src = './img/svg/logo-dark.svg';
+		} else {
+			htmlElement.removeAttribute('data-theme');
+			logoImage.src = './img/svg/logo-light.svg';
+		}
+	}
+
+	// Перевіряємо localStorage при завантаженні сторінки
+	const savedTheme = localStorage.getItem('theme');
+
+	if (savedTheme) {
+		// Якщо тема збережена в localStorage, використовуємо її
+		applyTheme(savedTheme);
+	} else {
+		// Якщо теми немає, перевіряємо системні налаштування браузера
+		const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	
+		if (prefersDark) {
+			applyTheme('dark');
+			localStorage.setItem('theme', 'dark'); // Зберігаємо системну тему в localStorage
+		} else {
+			applyTheme('light');
+			localStorage.setItem('theme', 'light'); // Зберігаємо системну тему в localStorage
+		}
+	}
+
+	// Обробник подій для кнопки перемикання теми
+	themeToggle.addEventListener('click', () => {
+		if (htmlElement.getAttribute('data-theme') === 'dark') {
+			applyTheme('light');
+			localStorage.setItem('theme', 'light');
+		} else {
+			applyTheme('dark');
+			localStorage.setItem('theme', 'dark');
+		}
+	});
+	
 	// зміна мов в хедері ---------------------------------------------------------------------------------
 	const dropdown = document.querySelector('.language-dropdown');
 	const toggleButton = dropdown.querySelector('.language-dropdown__toggle');
