@@ -33,7 +33,15 @@
 			<div class="header__container">
 				<a href="" class="header__logo"><img id="logo-image" src="./img/svg/logo-light.svg" alt="logo"></a>
 				<div class="header__menu menu">
-					<button type="button" class="menu__icon icon-menu"><span></span></button>
+					<div class="header__menu_buttons"></div>
+					<button type="button" class="menu__icon icon-menu">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M14 4H20V10H14V4Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M4 7C4 7.39397 4.0776 7.78407 4.22836 8.14805C4.37913 8.51203 4.6001 8.84274 4.87868 9.12132C5.15726 9.3999 5.48797 9.62087 5.85195 9.77164C6.21593 9.9224 6.60603 10 7 10C7.39397 10 7.78407 9.9224 8.14805 9.77164C8.51203 9.62087 8.84274 9.3999 9.12132 9.12132C9.3999 8.84274 9.62087 8.51203 9.77164 8.14805C9.9224 7.78407 10 7.39397 10 7C10 6.60603 9.9224 6.21593 9.77164 5.85195C9.62087 5.48797 9.3999 5.15726 9.12132 4.87868C8.84274 4.6001 8.51203 4.37913 8.14805 4.22836C7.78407 4.0776 7.39397 4 7 4C6.60603 4 6.21593 4.0776 5.85195 4.22836C5.48797 4.37913 5.15726 4.6001 4.87868 4.87868C4.6001 5.15726 4.37913 5.48797 4.22836 5.85195C4.0776 6.21593 4 6.60603 4 7Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M4 14H10V20H4V14Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M14 17C14 17.7956 14.3161 18.5587 14.8787 19.1213C15.4413 19.6839 16.2044 20 17 20C17.7956 20 18.5587 19.6839 19.1213 19.1213C19.6839 18.5587 20 17.7956 20 17C20 16.2044 19.6839 15.4413 19.1213 14.8787C18.5587 14.3161 17.7956 14 17 14C16.2044 14 15.4413 14.3161 14.8787 14.8787C14.3161 15.4413 14 16.2044 14 17Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</button>
 					<nav class="menu__body">
 						<ul class="menu__list">
 							<li class="menu__item menu__item-dropdown"><a href="#" class="menu__link">Top freelancers</a>
@@ -262,33 +270,37 @@
 									</ul>
 								</div>
 							</li>
+							<li class="menu__item">
+								<button id="theme-toggle" class="theme-toggle">
+									<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<g clip-path="url(#clip0_123_1057)">
+										<path d="M8 12C8 13.0609 8.42143 14.0783 9.17157 14.8284C9.92172 15.5786 10.9391 16 12 16C13.0609 16 14.0783 15.5786 14.8284 14.8284C15.5786 14.0783 16 13.0609 16 12C16 10.9391 15.5786 9.92172 14.8284 9.17157C14.0783 8.42143 13.0609 8 12 8C10.9391 8 9.92172 8.42143 9.17157 9.17157C8.42143 9.92172 8 10.9391 8 12Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										<path d="M3 12H4M12 3V4M20 12H21M12 20V21M5.6 5.6L6.3 6.3M18.4 5.6L17.7 6.3M17.7 17.7L18.4 18.4M6.3 17.7L5.6 18.4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										</g>
+										<defs>
+										<clipPath id="clip0_123_1057">
+										<rect width="24" height="24"/>
+										</clipPath>
+										</defs>
+									</svg>
+									<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<g clip-path="url(#clip0_123_1061)">
+										<path d="M11.9998 2.99994C12.1318 2.99994 12.2628 2.99994 12.3928 2.99994C11.1081 4.19365 10.2824 5.79979 10.0591 7.53916C9.83577 9.27854 10.229 11.0412 11.1705 12.5207C12.112 14.0002 13.5422 15.103 15.2124 15.6374C16.8826 16.1718 18.6873 16.1041 20.3128 15.4459C19.6875 16.9504 18.6656 18.257 17.356 19.2262C16.0464 20.1954 14.4982 20.791 12.8767 20.9493C11.2552 21.1077 9.62104 20.8229 8.14867 20.1253C6.6763 19.4278 5.42089 18.3436 4.51637 16.9885C3.61185 15.6334 3.09213 14.0582 3.01267 12.4309C2.9332 10.8036 3.29696 9.18524 4.06515 7.74846C4.83334 6.31167 5.97714 5.11037 7.37454 4.27268C8.77195 3.43499 10.3705 2.99234 11.9998 2.99194V2.99994Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										</g>
+										<defs>
+										<clipPath id="clip0_123_1061">
+										<rect width="24" height="24"/>
+										</clipPath>
+										</defs>
+									</svg>
+								</button>
+							</li>
 						</ul>
 					</nav>
 				</div>
+				
 			</div>
-			<button id="theme-toggle" class="theme-toggle">
-				<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-					<g clip-path="url(#clip0_123_1057)">
-					<path d="M8 12C8 13.0609 8.42143 14.0783 9.17157 14.8284C9.92172 15.5786 10.9391 16 12 16C13.0609 16 14.0783 15.5786 14.8284 14.8284C15.5786 14.0783 16 13.0609 16 12C16 10.9391 15.5786 9.92172 14.8284 9.17157C14.0783 8.42143 13.0609 8 12 8C10.9391 8 9.92172 8.42143 9.17157 9.17157C8.42143 9.92172 8 10.9391 8 12Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-					<path d="M3 12H4M12 3V4M20 12H21M12 20V21M5.6 5.6L6.3 6.3M18.4 5.6L17.7 6.3M17.7 17.7L18.4 18.4M6.3 17.7L5.6 18.4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-					</g>
-					<defs>
-					<clipPath id="clip0_123_1057">
-					<rect width="24" height="24"/>
-					</clipPath>
-					</defs>
-				</svg>
-				<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-					<g clip-path="url(#clip0_123_1061)">
-					<path d="M11.9998 2.99994C12.1318 2.99994 12.2628 2.99994 12.3928 2.99994C11.1081 4.19365 10.2824 5.79979 10.0591 7.53916C9.83577 9.27854 10.229 11.0412 11.1705 12.5207C12.112 14.0002 13.5422 15.103 15.2124 15.6374C16.8826 16.1718 18.6873 16.1041 20.3128 15.4459C19.6875 16.9504 18.6656 18.257 17.356 19.2262C16.0464 20.1954 14.4982 20.791 12.8767 20.9493C11.2552 21.1077 9.62104 20.8229 8.14867 20.1253C6.6763 19.4278 5.42089 18.3436 4.51637 16.9885C3.61185 15.6334 3.09213 14.0582 3.01267 12.4309C2.9332 10.8036 3.29696 9.18524 4.06515 7.74846C4.83334 6.31167 5.97714 5.11037 7.37454 4.27268C8.77195 3.43499 10.3705 2.99234 11.9998 2.99194V2.99994Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-					</g>
-					<defs>
-					<clipPath id="clip0_123_1061">
-					<rect width="24" height="24"/>
-					</clipPath>
-					</defs>
-				</svg>
-			</button>
+			
 		</header>
 		<main>
 			<section class="fullscreen">
@@ -305,7 +317,10 @@
 							<a class="fullscreen__button button-left" href="#">Hire a Freelancer</a>
 							<a class="fullscreen__button button-right" href="#">Hire a Freelancer</a>
 						</div>
-						<p class="fullscreen__autor">This banner design cost $60 USDT and took 2 days, by <a href="#"><img src="./img/png/fullscreen-autor.png" alt="autor"> webannad</a></p>
+						<div class="fullscreen__autor">
+							<p>This banner design cost $60 USDT and took 2 days, by </p>
+							<a href="#"><img src="./img/png/fullscreen-autor.png" alt="autor"> webannad</a>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -355,6 +370,8 @@
 									<h4>Fast bids</h4>
 									<p>Get quick, no-obligation quotes from skilled freelancers. 80% of jobs receive bids within 60 seconds. Your idea is just moments from reality.</p>
 								</div>
+							</div>
+							<div class="real__text_flex">
 								<div class="real__text_item">
 									<h4>Quality work</h4>
 									<p>With Freelancer's talent pool of over 60 million professionals at your fingertips, you'll find quality talent to get what you need done.</p>
@@ -462,6 +479,8 @@
 										<h4>Choose freelancers</h4>
 										<p>No job is too big or complex. We've got freelancers for jobs of any size or budget, across 2700+ skills. Let our talent bring your ideas to life.</p>
 									</div>
+								</div>
+								<div class="info__text_flex">
 									<div class="info__text_item">
 										<h4>Pay safely</h4>
 										<p>Only pay for work when you are 100% satisfied with the outcome. Our milestone payment system protects you every step of the way.</p>
@@ -477,7 +496,10 @@
 								</div>
 							</div>
 							<div class="info__image">
-								<img src="./img/png/info-image-desctop.png" alt="info-image">
+								<picture>
+									<source srcset="./img/png/info-image-mobile.png" media="(max-width: 425px)">
+									<img src="./img/png/info-image-desctop.png" alt="info-image">
+								</picture>
 							</div>
 						</div>
 					</div>
@@ -1642,7 +1664,7 @@
 				<div class="quations__container">
 					<h2>Top user<span>quations</span></h2>
 					<div class="quations__flex">
-						<div class="quations__flex_column">
+						<div class="quations__flex_column hidden-on-mobile">
 							<div class="quations__item">
 								<button class="accordion"><span>It's free and easy! Get lots of competitive bids that suit your budget</span></button>
 								<div class="panel">
@@ -1799,74 +1821,84 @@
 					<div class="footer__columns">
 						<div class="footer__columns_column">
 							<h5>Freelancer</h5>
-							<a href="#">Categories</a>
-							<a href="#">Projects</a>
-							<a href="#">Contests</a>
-							<a href="#">Freelancers</a>
-							<a href="#">Enterprise</a>
-							<a href="#">Innovation Challenges</a>
-							<a href="#">AI Development</a>
-							<a href="#">Membership</a>
-							<a href="#">Preferred Freelancer Program</a>
-							<a href="#">Project Management</a>
-							<a href="#">Local Jobs</a>
-							<a href="#">Photo Anywhere</a>
-							<a href="#">Showcase</a>
-							<a href="#">API for Developers</a>
-							<a href="#">Get Verified</a>
-							<a href="#">Desktop App</a>
+							<div class="footer__panel">
+								<a href="#">Categories</a>
+								<a href="#">Projects</a>
+								<a href="#">Contests</a>
+								<a href="#">Freelancers</a>
+								<a href="#">Enterprise</a>
+								<a href="#">Innovation Challenges</a>
+								<a href="#">AI Development</a>
+								<a href="#">Membership</a>
+								<a href="#">Preferred Freelancer Program</a>
+								<a href="#">Project Management</a>
+								<a href="#">Local Jobs</a>
+								<a href="#">Photo Anywhere</a>
+								<a href="#">Showcase</a>
+								<a href="#">API for Developers</a>
+								<a href="#">Get Verified</a>
+								<a href="#">Desktop App</a>
+							</div>
 						</div>
 						<div class="footer__columns_column">
 							<h5>About</h5>
-							<a href="#">About us</a>
-							<a href="#">How it works</a>
-							<a href="#">Security</a>
-							<a href="#">Investors</a>
-							<a href="#">Sitemap</a>
-							<a href="#">Stories</a>
-							<a href="#">News</a>
-							<a href="#">Team</a>
-							<a href="#">Awards</a>
-							<a href="#">Program</a>
-							<a href="#">Press releasses</a>
-							<a href="#">Careers</a>
+							<div class="footer__panel">
+								<a href="#">About us</a>
+								<a href="#">How it works</a>
+								<a href="#">Security</a>
+								<a href="#">Investors</a>
+								<a href="#">Sitemap</a>
+								<a href="#">Stories</a>
+								<a href="#">News</a>
+								<a href="#">Team</a>
+								<a href="#">Awards</a>
+								<a href="#">Program</a>
+								<a href="#">Press releasses</a>
+								<a href="#">Careers</a>
+							</div>
 						</div>
 						<div class="footer__columns_column">
 							<div class="footer__columns_sub-column">
 								<h5>Terms</h5>
-								<a href="#">Privacy Policy</a>
-								<a href="#">Terms and Conditions</a>
-								<a href="#">Copyright Policy</a>
-								<a href="#">Code of Conduct</a>
-								<a href="#">Fees and Charges</a>
+								<div class="footer__panel">
+									<a href="#">Privacy Policy</a>
+									<a href="#">Terms and Conditions</a>
+									<a href="#">Copyright Policy</a>
+									<a href="#">Code of Conduct</a>
+									<a href="#">Fees and Charges</a>
+								</div>
 							</div>
 							<div class="footer__columns_sub-column">
 								<h5>Clients</h5>
-								<a href="#">Privacy Policy</a>
-								<a href="#">Terms and Conditions</a>
-								<a href="#">Copyright Policy</a>
-								<a href="#">Code of Conduct</a>
-								<a href="#">Fees and Charges</a>
+								<div class="footer__panel">
+									<a href="#">Privacy Policy</a>
+									<a href="#">Terms and Conditions</a>
+									<a href="#">Copyright Policy</a>
+									<a href="#">Code of Conduct</a>
+									<a href="#">Fees and Charges</a>
+								</div>
 							</div>
 						</div>
 						<div class="footer__columns_column">
 							<h5>Infomation</h5>
-							<a href="#">Categories</a>
-							<a href="#">Projects</a>
-							<a href="#">Contests</a>
-							<a href="#">Freelancers</a>
-							<a href="#">Enterprise</a>
-							<a href="#">Innovation Challenges</a>
-							<a href="#">AI Development</a>
-							<a href="#">Membership</a>
-							<a href="#">Preferred Freelancer Program</a>
-							<a href="#">Project Management</a>
-							<a href="#">Local Jobs</a>
-							<a href="#">Photo Anywhere</a>
-							<a href="#">Showcase</a>
-							<a href="#">API for Developers</a>
-							<a href="#">Get Verified</a>
-							<a href="#">Desktop App</a>
+							<div class="footer__panel">
+								<a href="#">Categories</a>
+								<a href="#">Projects</a>
+								<a href="#">Contests</a>
+								<a href="#">Freelancers</a>
+								<a href="#">Enterprise</a>
+								<a href="#">Innovation Challenges</a>
+								<a href="#">AI Development</a>
+								<a href="#">Membership</a>
+								<a href="#">Preferred Freelancer Program</a>
+								<a href="#">Project Management</a>
+								<a href="#">Local Jobs</a>
+								<a href="#">Photo Anywhere</a>
+								<a href="#">Showcase</a>
+								<a href="#">API for Developers</a>
+								<a href="#">Get Verified</a>
+								<a href="#">Desktop App</a>
+							</div>
 						</div>
 					</div>
 				</div>
