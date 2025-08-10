@@ -389,59 +389,59 @@ function initAccordions() {
 
 // мобільний акордеон в футері --------------------------------------------------------------------------------
 function initFooterAccordion() {
-  const mediaQuery = window.matchMedia("(max-width: 767px)");
+	const mediaQuery = window.matchMedia("(max-width: 768.7px)");
 
-  function handleAccordionBehavior(mediaQuery) {
-    const accordionHeadings = document.querySelectorAll(".footer__columns_column h5");
+	function handleAccordionBehavior(mediaQuery) {
+		const accordionHeadings = document.querySelectorAll(".footer__columns_column h5");
 
-    // Функція, що відповідає за згортання/розгортання
-    function toggleAccordion() {
-      const isActive = this.classList.contains("active");
-      const panelToToggle = this.nextElementSibling;
-      
-      // Закриваємо всі відкриті панелі у футері
-      accordionHeadings.forEach(heading => {
-        const panelToClose = heading.nextElementSibling;
-        heading.classList.remove("active");
-        if (panelToClose) {
-			  panelToClose.style.maxHeight = null;
-			  panelToClose.classList.remove("active");
-        }
-      });
-      
-      // Якщо поточна вкладка не була активною, відкриваємо її
-      if (!isActive) {
-        this.classList.add("active");
-        if (panelToToggle) {
-			  panelToToggle.style.maxHeight = panelToToggle.scrollHeight + "px";
-			  panelToToggle.classList.add("active");
-        }
-      }
-    }
+		// Функція, що відповідає за згортання/розгортання
+		function toggleAccordion() {
+			const isActive = this.classList.contains("active");
+			const panelToToggle = this.nextElementSibling;
+			
+			// Закриваємо всі відкриті панелі у футері
+			accordionHeadings.forEach(heading => {
+			const panelToClose = heading.nextElementSibling;
+			heading.classList.remove("active");
+			if (panelToClose) {
+				panelToClose.style.maxHeight = null;
+				panelToClose.classList.remove("active");
+			}
+			});
+			
+			// Якщо поточна вкладка не була активною, відкриваємо її
+			if (!isActive) {
+			this.classList.add("active");
+			if (panelToToggle) {
+				panelToToggle.style.maxHeight = panelToToggle.scrollHeight + "px";
+				panelToToggle.classList.add("active");
+			}
+			}
+		}
 
-    if (mediaQuery.matches) {
-      // Додаємо обробники подій для мобільної версії
-      accordionHeadings.forEach(heading => {
-        heading.addEventListener("click", toggleAccordion);
-      });
-    } else {
-      // Видаляємо обробники подій для десктопної версії
-      accordionHeadings.forEach(heading => {
-        heading.removeEventListener("click", toggleAccordion);
-        heading.classList.remove("active");
-        const panel = heading.nextElementSibling;
-        if (panel) {
-          panel.style.maxHeight = null;
-        }
-      });
-    }
-  }
+		if (mediaQuery.matches) {
+			// Додаємо обробники подій для мобільної версії
+			accordionHeadings.forEach(heading => {
+			heading.addEventListener("click", toggleAccordion);
+			});
+		} else {
+			// Видаляємо обробники подій для десктопної версії
+			accordionHeadings.forEach(heading => {
+			heading.removeEventListener("click", toggleAccordion);
+			heading.classList.remove("active");
+			const panel = heading.nextElementSibling;
+			if (panel) {
+				panel.style.maxHeight = null;
+			}
+			});
+		}
+	}
 
-  // Викликаємо функцію при завантаженні сторінки
-  handleAccordionBehavior(mediaQuery);
+	// Викликаємо функцію при завантаженні сторінки
+	handleAccordionBehavior(mediaQuery);
 
-  // Слухаємо зміни розміру екрана
-  mediaQuery.addListener(handleAccordionBehavior);
+	// Слухаємо зміни розміру екрана
+	mediaQuery.addListener(handleAccordionBehavior);
 }
 
 
