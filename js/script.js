@@ -211,9 +211,39 @@ function initLanguageDropdown() {
 }
 
 // зміна позицій елементів в мобільному меню ----------------------------------------------------------
+
 function initMenuElementMover() {
-	const BREAKPOINT = 1024.5;
+	const BREAKPOINT = 1250;
 	let resizeTimer = null;
+
+	let originalOrder = null; // початковий порядок
+	let isMobileOrder = false; // чи вже переставляли для мобільного
+
+	function saveOriginalOrder(menuList) {
+		if (!originalOrder) {
+			originalOrder = Array.from(menuList.children);
+		}
+	}
+
+	function restoreOriginalOrder(menuList) {
+		if (originalOrder) {
+			originalOrder.forEach(item => menuList.appendChild(item));
+			isMobileOrder = false;
+		}
+	}
+
+	function reorderMenuItems(menuList) {
+		const items = Array.from(menuList.querySelectorAll('.menu__item'));
+		if (items.length < 2) return;
+
+		const firstItem = items[0];
+		const secondItem = items[1];
+
+		menuList.insertBefore(secondItem, menuList.children[menuList.children.length - 1]);
+		menuList.insertBefore(firstItem, secondItem);
+
+		isMobileOrder = true;
+	}
 
 	function moveElement() {
 		const screenWidth = window.innerWidth;
@@ -222,28 +252,34 @@ function initMenuElementMover() {
 		const header = document.querySelector('.header');
 		if (!header) return;
 
-		// останній .menu__list у .header
 		const menuLists = header.querySelectorAll('.menu__list');
 		const menuList = menuLists.length ? menuLists[menuLists.length - 1] : null;
-		const menuItems = menuList ? menuList.querySelectorAll('.menu__item') : [];
+		if (!menuList) return;
 
-		const lastMenuItem = menuItems.length ? menuItems[menuItems.length - 1] : null; // .menu__item:last-child
-		const thirdMenuItem = menuItems.length >= 3 ? menuItems[2] : null; // .menu__item:nth-child(3)
+		saveOriginalOrder(menuList);
+
+		// Порядок елементів змінюємо лише при переході між станами
+		if (screenWidth > BREAKPOINT && isMobileOrder) {
+			restoreOriginalOrder(menuList);
+		} else if (screenWidth <= BREAKPOINT && !isMobileOrder) {
+			reorderMenuItems(menuList);
+		}
+
+		// Логіка кнопок
+		const menuItems = menuList.querySelectorAll('.menu__item');
+		const lastMenuItem = menuItems.length ? menuItems[menuItems.length - 1] : null;
+		const thirdMenuItem = menuItems.length >= 3 ? menuItems[2] : null;
 
 		const menuButtons = header.querySelector('.header__menu_buttons');
-
 		const greenBtn = document.querySelector('.btn-green');
 		const themeToggle = document.querySelector('.theme-toggle');
 
 		if (!greenBtn || !themeToggle) return;
 
-		// --- Десктоп (повернути в початкові місця з HTML) ---
 		if (screenWidth > BREAKPOINT) {
-			// theme-toggle -> .header .menu__list:last-child .menu__item:last-child
 			if (lastMenuItem && themeToggle.parentElement !== lastMenuItem) {
 				lastMenuItem.appendChild(themeToggle);
 			}
-			// btn-green -> .header .menu__list:last-child .menu__item:nth-child(3)
 			if (thirdMenuItem) {
 				if (greenBtn.parentElement !== thirdMenuItem) {
 					thirdMenuItem.appendChild(greenBtn);
@@ -256,9 +292,7 @@ function initMenuElementMover() {
 			return;
 		}
 
-		// --- Мобільна/планшетна логіка ---
 		if (!isMenuOpen) {
-			// меню закрите
 			if (lastMenuItem && themeToggle.parentElement !== lastMenuItem) {
 				lastMenuItem.appendChild(themeToggle);
 			}
@@ -266,7 +300,6 @@ function initMenuElementMover() {
 				menuButtons.appendChild(greenBtn);
 			}
 		} else {
-			// меню відкрите
 			if (menuButtons && themeToggle.parentElement !== menuButtons) {
 				menuButtons.appendChild(themeToggle);
 			}
@@ -276,7 +309,6 @@ function initMenuElementMover() {
 		}
 	}
 
-	// запуск і підписка на події
 	moveElement();
 
 	window.addEventListener('resize', () => {
