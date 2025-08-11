@@ -374,7 +374,8 @@ body {
 		justify-content: flex-start;
 		align-items: flex-start;
 		padding-inline: 16px;
-		overflow-x: auto;
+		overflow-x: hidden;
+		overflow-y: auto;
 	}
 
 	.header .menu__body::-webkit-scrollbar {
