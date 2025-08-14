@@ -708,7 +708,7 @@ body {
     border-radius: 0;
   }
   .header .sub-menu .tab-content-item span {
-    color: var(--dark-color);
+    color: var(--text-color);
     padding: 0;
   }
 }
