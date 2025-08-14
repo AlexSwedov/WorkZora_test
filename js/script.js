@@ -359,34 +359,135 @@ function initMarquee() {
 }
 
 // слайдери ---------------------------------------------------------------------------------------------------
-function initSliders() {
-	// Ініціалізація першого слайдера
-	const firstSlider = new Swiper(".first-slider__slider", {
-		slidesPerView: 1,
-		spaceBetween: 30,
-		loop: true,
-		keyboard: {
-			enabled: true,
-		},
-		navigation: {
-			nextEl: ".first-slider__next",
-			prevEl: ".first-slider__prev",
-		},
-	});
 
-	// Ініціалізація другого слайдера
-	const secondSlider = new Swiper(".second-slider__slider", {
-		slidesPerView: 1,
-		spaceBetween: 30,
-		loop: true,
-		keyboard: {
-			enabled: true,
+function initSliderWithEnlarged({ sliderSelector, nextBtn, prevBtn, breakpoints }) {
+	const swiperContainer = document.querySelector(sliderSelector);
+	if (!swiperContainer) return;
+
+	const mediaQuery = window.matchMedia("(max-width: 768.5px)");
+	let swiperInstance;
+	let enlargedSlide;
+
+	function initializeSwiper(options) {
+		if (swiperInstance) {
+			swiperInstance.destroy(true, true);
+		}
+		swiperInstance = new Swiper(sliderSelector, options);
+	}
+
+	function removeEnlargedSlide() {
+		if (enlargedSlide) {
+			enlargedSlide.remove();
+			enlargedSlide = null;
+		}
+		if (swiperInstance) {
+			swiperInstance.off("slideChangeTransitionStart", handleSlideChange);
+		}
+	}
+
+	function handleSlideChange() {
+		if (!mediaQuery.matches || !enlargedSlide) {
+			return;
+		}
+
+		const currentHeight = enlargedSlide.scrollHeight;
+		enlargedSlide.style.height = `${currentHeight}px`;
+
+		requestAnimationFrame(() => {
+			updateContent();
+			
+			setTimeout(() => {
+				enlargedSlide.style.height = 'auto';
+			}, 50);
+		});
+	}
+
+	function updateContent() {
+		const activeSlide = swiperInstance.slides[swiperInstance.activeIndex];
+		if (!activeSlide) return;
+
+		const activeIndexAttr = activeSlide.getAttribute("data-swiper-slide-index");
+		swiperInstance.slides.forEach(slide => {
+			slide.style.display = (slide.getAttribute("data-swiper-slide-index") === activeIndexAttr) ? "none" : "";
+		});
+
+		const cloned = activeSlide.cloneNode(true);
+		cloned.classList.remove("swiper-slide");
+		cloned.removeAttribute("style");
+		cloned.querySelectorAll("[style]").forEach(el => el.removeAttribute("style"));
+
+		enlargedSlide.innerHTML = "";
+		enlargedSlide.appendChild(cloned);
+	}
+
+	function setupSliderMode() {
+		if (mediaQuery.matches) {
+			const mobileOptions = {
+				slidesPerView: 1,
+				spaceBetween: 30,
+				loop: true,
+				keyboard: { enabled: true },
+				navigation: {
+					nextEl: nextBtn,
+					prevEl: prevBtn,
+				},
+				breakpoints: breakpoints || {},
+			};
+			initializeSwiper(mobileOptions);
+
+			if (!enlargedSlide) {
+				enlargedSlide = document.createElement("div");
+				enlargedSlide.classList.add("enlarged-slide");
+				enlargedSlide.style.transition = "height 0.3s ease-out";
+				swiperContainer.insertBefore(enlargedSlide, swiperContainer.querySelector(".swiper-wrapper"));
+			}
+
+			updateContent();
+			swiperInstance.on("slideChangeTransitionStart", handleSlideChange);
+		} else {
+			removeEnlargedSlide();
+			
+			const desktopOptions = {
+				slidesPerView: 1,
+				spaceBetween: 30,
+				loop: true,
+				keyboard: { enabled: true },
+				navigation: {
+					nextEl: nextBtn,
+					prevEl: prevBtn,
+				},
+				breakpoints: breakpoints || {},
+			};
+			initializeSwiper(desktopOptions);
+		}
+	}
+
+	mediaQuery.addEventListener("change", setupSliderMode);
+	setupSliderMode();
+}
+
+// Виносимо ініціалізацію слайдерів в окрему функцію
+function initAllSliders() {
+	[
+		{
+			sliderSelector: ".first-slider__slider",
+			nextBtn: ".first-slider__next",
+			prevBtn: ".first-slider__prev",
+			breakpoints: {
+			320: { slidesPerView: 2, centeredSlides: true, spaceBetween: 20 },
+			768.5: { slidesPerView: 1, spaceBetween: 30 },
+			},
 		},
-		navigation: {
-			nextEl: ".second-slider__next",
-			prevEl: ".second-slider__prev",
+		{
+			sliderSelector: ".second-slider__slider",
+			nextBtn: ".second-slider__next",
+			prevBtn: ".second-slider__prev",
+			breakpoints: {
+			320: { slidesPerView: 2, centeredSlides: true, spaceBetween: 20 },
+			768.5: { slidesPerView: 1, spaceBetween: 30 },
+			},
 		},
-	});
+	].forEach(initSliderWithEnlarged);
 }
 
 // акордеон ---------------------------------------------------------------------------------------------------
@@ -494,7 +595,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	// ініціалізація рядка marquee ------------------------------------------------------------------------
 	initMarquee();
 	// ініціалізація слайдерів ----------------------------------------------------------------------------
-	initSliders();
+	initAllSliders();
 	// ініціалізація аккордеону ---------------------------------------------------------------------------
 	initAccordions();
 	

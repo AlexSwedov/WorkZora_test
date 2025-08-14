@@ -1187,48 +1187,90 @@ body {
   padding-top: 128px;
   padding-bottom: 64px;
 }
+@media (max-width: 768.5px) {
+  .first-slider__container {
+    padding-block: 32px;
+  }
+}
 .first-slider__next::after, .first-slider__prev::after {
   content: "";
   border-bottom: 1px solid var(--light-color);
   border-right: 1px solid var(--light-color);
 }
-.first-slider__next:hover::after, .first-slider__prev:hover::after {
-  border-bottom: 1px solid var(--primary-color);
-  border-right: 1px solid var(--primary-color);
+@media (max-width: 768.5px) {
+  .first-slider__next::after, .first-slider__prev::after {
+    border-bottom: 2px solid var(--light-color);
+    border-right: 2px solid var(--light-color);
+  }
 }
 :root[data-theme=dark] .first-slider__next:hover::after,
 :root[data-theme=dark] .first-slider__prev:hover::after {
   border-bottom: 1px solid var(--black-color);
   border-right: 1px solid var(--black-color);
 }
+@media (max-width: 768.5px) {
+  :root[data-theme=dark] .first-slider__next:hover::after,
+  :root[data-theme=dark] .first-slider__prev:hover::after {
+    border-bottom: 2px solid var(--black-color);
+    border-right: 2px solid var(--black-color);
+  }
+}
 
 .second-slider__container {
   padding-top: 128px;
   padding-bottom: 64px;
+}
+@media (max-width: 768.5px) {
+  .second-slider__container {
+    padding-block: 32px;
+  }
 }
 .second-slider__next::after, .second-slider__prev::after {
   content: "";
   border-bottom: 1px solid var(--black-color);
   border-right: 1px solid var(--black-color);
 }
-.second-slider__next:hover::after, .second-slider__prev:hover::after {
-  border-bottom: 1px solid var(--primary-color);
-  border-right: 1px solid var(--primary-color);
+@media (max-width: 768.5px) {
+  .second-slider__next::after, .second-slider__prev::after {
+    border-bottom: 2px solid var(--black-color);
+    border-right: 2px solid var(--black-color);
+  }
 }
 :root[data-theme=dark] .second-slider__next::after,
 :root[data-theme=dark] .second-slider__prev::after {
   border-bottom: 1px solid var(--light-color);
   border-right: 1px solid var(--light-color);
 }
-:root[data-theme=dark] .second-slider__next:hover::after,
-:root[data-theme=dark] .second-slider__prev:hover::after {
-  border-bottom: 1px solid var(--primary-color);
-  border-right: 1px solid var(--primary-color);
+@media (max-width: 768.5px) {
+  :root[data-theme=dark] .second-slider__next::after,
+  :root[data-theme=dark] .second-slider__prev::after {
+    border-bottom: 2px solid var(--light-color);
+    border-right: 2px solid var(--light-color);
+  }
 }
 
 .slider {
   padding-inline: 12px;
   padding-bottom: 52px;
+}
+@media (max-width: 768.5px) {
+  .slider {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    height: auto;
+  }
+}
+@media (max-width: 768.5px) {
+  .slider .enlarged-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+  }
+  .slider .enlarged-slide img {
+    max-width: 100%;
+  }
 }
 .slider__link {
   display: flex;
@@ -1237,6 +1279,12 @@ body {
 }
 .slider__bigImage {
   flex: calc(43% - 32px);
+  border-radius: 20px;
+}
+@media (max-width: 768.5px) {
+  .slider__bigImage {
+    text-align: center;
+  }
 }
 .slider__bigImage img {
   max-width: 100%;
@@ -1258,13 +1306,27 @@ body {
      object-position: center;
   border-radius: 20px;
 }
+@media (max-width: 768.5px) {
+  .slider .hidden-on-mobile {
+    display: none;
+  }
+}
+@media (min-width: 768.5px) {
+  .slider .hidden-on-desctop {
+    display: none;
+  }
+}
 
 .slider-buttons {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 32px;
-  padding-right: 12px;
+}
+@media (max-width: 768.5px) {
+  .slider-buttons {
+    justify-content: center;
+  }
 }
 .slider-buttons .button-prev,
 .slider-buttons .button-next {
@@ -1282,10 +1344,24 @@ body {
   height: 8px;
   display: inline-block;
 }
+@media (max-width: 768.5px) {
+  .slider-buttons .button-prev::after,
+  .slider-buttons .button-next::after {
+    width: 12px;
+    height: 12px;
+  }
+}
 .slider-buttons .button-prev:hover::after,
 .slider-buttons .button-next:hover::after {
   border-bottom: 1px solid var(--primary-color);
   border-right: 1px solid var(--primary-color);
+}
+@media (max-width: 768.5px) {
+  .slider-buttons .button-prev:hover::after,
+  .slider-buttons .button-next:hover::after {
+    border-bottom: 2px solid var(--primary-color);
+    border-right: 2px solid var(--primary-color);
+  }
 }
 .slider-buttons .button-prev::after {
   transform: translate(-50%, -50%) rotate(135deg);
