@@ -75,6 +75,62 @@ function menuClose() {
 	document.documentElement.classList.remove("menu-open")
 }
 
+// випадаюче меню в хедері ----------------------------------------------------------------------------
+function initDropdowns() {
+	const dropdownItems = document.querySelectorAll('.menu__item-dropdown');
+
+	dropdownItems.forEach(dropdownItem => {
+		dropdownItem.addEventListener('click', function(event) {
+			event.preventDefault();
+			const clickedItem = this;
+
+			dropdownItems.forEach(item => {
+			if (item !== clickedItem && item.classList.contains('active')) {
+				item.classList.remove('active');
+			}
+			});
+
+			clickedItem.classList.toggle('active');
+		});
+	});
+
+	document.addEventListener('click', function(event) {
+		dropdownItems.forEach(item => {
+			if (!item.contains(event.target) && item.classList.contains('active')) {
+			item.classList.remove('active');
+			}
+		});
+	});
+}
+
+// таби у випадаючому меню ----------------------------------------------------------------------------
+function initTabs() {
+	const tabButtons = document.querySelectorAll('.tab-button');
+	const tabContents = document.querySelectorAll('.tab-content');
+
+	tabButtons.forEach(button => {
+		button.addEventListener('click', (event) => {
+			event.preventDefault();
+
+			if (button.classList.contains('active')) {
+				return;
+			}
+
+			tabButtons.forEach(btn => btn.classList.remove('active'));
+			button.classList.add('active');
+
+			tabContents.forEach(content => content.classList.remove('active'));
+
+			const targetTabId = button.dataset.tab;
+			const targetTabContent = document.getElementById(targetTabId);
+
+			if (targetTabContent) {
+				targetTabContent.classList.add('active');
+			}
+		});
+	});
+}
+
 // зміна кольорової теми ------------------------------------------------------------------------------
 function applyTheme(theme) {
 	const htmlElement = document.documentElement;
@@ -213,11 +269,11 @@ function initLanguageDropdown() {
 // зміна позицій елементів в мобільному меню ----------------------------------------------------------
 
 function initMenuElementMover() {
-	const BREAKPOINT = 1250;
+	const BREAKPOINT = 991.5;
 	let resizeTimer = null;
 
-	let originalOrder = null; // початковий порядок
-	let isMobileOrder = false; // чи вже переставляли для мобільного
+	let originalOrder = null;
+	let isMobileOrder = false;
 
 	function saveOriginalOrder(menuList) {
 		if (!originalOrder) {
@@ -234,21 +290,15 @@ function initMenuElementMover() {
 
 	function reorderMenuItems(menuList) {
 		const items = Array.from(menuList.querySelectorAll('.menu__item'));
-		if (items.length < 2) return;
+		if (items.length < 1) return;
 
 		const firstItem = items[0];
-		const secondItem = items[1];
-
-		menuList.insertBefore(secondItem, menuList.children[menuList.children.length - 1]);
-		menuList.insertBefore(firstItem, secondItem);
-
+		menuList.insertBefore(firstItem, menuList.children[menuList.children.length - 1]);
 		isMobileOrder = true;
 	}
 
 	function moveElement() {
 		const screenWidth = window.innerWidth;
-		const isMenuOpen = document.documentElement.classList.contains('menu-open');
-
 		const header = document.querySelector('.header');
 		if (!header) return;
 
@@ -258,53 +308,51 @@ function initMenuElementMover() {
 
 		saveOriginalOrder(menuList);
 
-		// Порядок елементів змінюємо лише при переході між станами
 		if (screenWidth > BREAKPOINT && isMobileOrder) {
 			restoreOriginalOrder(menuList);
 		} else if (screenWidth <= BREAKPOINT && !isMobileOrder) {
 			reorderMenuItems(menuList);
 		}
 
-		// Логіка кнопок
 		const menuItems = menuList.querySelectorAll('.menu__item');
 		const lastMenuItem = menuItems.length ? menuItems[menuItems.length - 1] : null;
-		const thirdMenuItem = menuItems.length >= 3 ? menuItems[2] : null;
-
-		const menuButtons = header.querySelector('.header__menu_buttons');
+		const languageDropdown = document.querySelector('.language-dropdown');
 		const greenBtn = document.querySelector('.btn-green');
 		const themeToggle = document.querySelector('.theme-toggle');
+		const menuButtons = header.querySelector('.header__menu_buttons');
 
-		if (!greenBtn || !themeToggle) return;
+		if (!greenBtn || !themeToggle || !lastMenuItem || !menuButtons || !languageDropdown) return;
+
+		// Знаходимо menu__item, який знаходиться перед language-dropdown
+		const languageDropdownParent = languageDropdown.closest('.menu__item');
+		const greenBtnTarget = languageDropdownParent ? languageDropdownParent.previousElementSibling : null;
 
 		if (screenWidth > BREAKPOINT) {
-			if (lastMenuItem && themeToggle.parentElement !== lastMenuItem) {
-				lastMenuItem.appendChild(themeToggle);
+			// Десктопний режим: переносимо кнопки в меню
+			if (themeToggle.parentElement !== lastMenuItem) {
+					lastMenuItem.appendChild(themeToggle);
 			}
-			if (thirdMenuItem) {
-				if (greenBtn.parentElement !== thirdMenuItem) {
-					thirdMenuItem.appendChild(greenBtn);
-				}
-			} else if (menuList) {
-				if (greenBtn.parentElement !== menuList) {
-					menuList.appendChild(greenBtn);
-				}
-			}
-			return;
-		}
-
-		if (!isMenuOpen) {
-			if (lastMenuItem && themeToggle.parentElement !== lastMenuItem) {
-				lastMenuItem.appendChild(themeToggle);
-			}
-			if (menuButtons && greenBtn.parentElement !== menuButtons) {
-				menuButtons.appendChild(greenBtn);
+			// Вставляємо btn-green у menu__item перед language-dropdown
+			if (greenBtnTarget && greenBtn.parentElement !== greenBtnTarget) {
+					greenBtnTarget.appendChild(greenBtn);
 			}
 		} else {
-			if (menuButtons && themeToggle.parentElement !== menuButtons) {
-				menuButtons.appendChild(themeToggle);
-			}
-			if (lastMenuItem && greenBtn.parentElement !== lastMenuItem) {
-				lastMenuItem.appendChild(greenBtn);
+			// Мобільний режим: переносимо кнопки в їхній оригінальний контейнер
+			const isMenuOpen = document.documentElement.classList.contains('menu-open');
+			if (isMenuOpen) {
+					if (themeToggle.parentElement !== menuButtons) {
+						menuButtons.appendChild(themeToggle);
+					}
+					if (greenBtn.parentElement !== lastMenuItem) {
+						lastMenuItem.appendChild(greenBtn);
+					}
+			} else {
+					if (themeToggle.parentElement !== lastMenuItem) {
+						lastMenuItem.appendChild(themeToggle);
+					}
+					if (greenBtn.parentElement !== menuButtons) {
+						menuButtons.appendChild(greenBtn);
+					}
 			}
 		}
 	}
@@ -319,8 +367,8 @@ function initMenuElementMover() {
 	const observer = new MutationObserver((mutations) => {
 		for (const m of mutations) {
 			if (m.attributeName === 'class') {
-				moveElement();
-				break;
+					moveElement();
+					break;
 			}
 		}
 	});
@@ -579,13 +627,17 @@ function initFooterAccordion() {
 
 
 
-
+// ініціалізація функцій після завантаження DOM ----------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
 	
 	// ініціалізація перевірки, чи браузер мобільний ------------------------------------------------------
 	addTouchClass();
 	// ініціалізація "бургер-меню" ------------------------------------------------------------------------
 	menuInit()
+	// ініціалізація випадаючого меню в хедері ------------------------------------------------------------
+	initDropdowns();
+	// ініціалізація табів у випадаючому меню -------------------------------------------------------------
+	initTabs();
 	// ініціалізація зміни кольорової теми ----------------------------------------------------------------
 	initThemeToggle();
 	// ініціалізація зміни мови ---------------------------------------------------------------------------
@@ -598,80 +650,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	initAllSliders();
 	// ініціалізація аккордеону ---------------------------------------------------------------------------
 	initAccordions();
-	
+	// ініціалізація аккордеону в футері ------------------------------------------------------------------
 	initFooterAccordion();
-	
-
-	// випадаюче меню в хедері ----------------------------------------------------------------------------
-	const dropdownItems = document.querySelectorAll('.menu__item-dropdown');
-
-	dropdownItems.forEach(dropdownItem => {
-	dropdownItem.addEventListener('click', function(event) {
-		event.preventDefault();
-		const clickedItem = this;
-
-		// Перебираємо всі елементи dropdownItems
-		dropdownItems.forEach(item => {
-			// Якщо елемент не є тим, на який клікнули, і він має клас 'active', то закриваємо його
-			if (item !== clickedItem && item.classList.contains('active')) {
-			item.classList.remove('active');
-			}
-		});
-
-		// Якщо поточний елемент вже відкритий, ми НІЧОГО не робимо (не закриваємо його).
-		// Якщо він закритий, ми його відкриваємо.
-		if (!clickedItem.classList.contains('active')) {
-			clickedItem.classList.add('active');
-		}
-		// Якщо ви хочете, щоб клік на відкрите меню все ж закривав його,
-		// залиште clickedItem.classList.toggle('active');
-		// Інакше, використовуйте логіку вище або таку:
-		// clickedItem.classList.toggle('active'); // Цей рядок закриває при повторному кліку
-	});
-	});
-
-	// Додатково, для закриття меню при кліку поза ним
-	document.addEventListener('click', function(event) {
-	dropdownItems.forEach(item => {
-		// Якщо клік був поза поточним елементом dropdownItem і він відкритий
-		if (!item.contains(event.target) && item.classList.contains('active')) {
-			item.classList.remove('active');
-		}
-	});
-	});
-	
-	// таби у випадаючому меню ----------------------------------------------------------------------------
-	
-	const tabButtons = document.querySelectorAll('.tab-button');
-	const tabContents = document.querySelectorAll('.tab-content');
-
-	tabButtons.forEach(button => {
-		button.addEventListener('click', (event) => { // Додайте 'event' як параметр
-			event.preventDefault(); // Запобігаємо стандартній дії браузера
-
-			// Перевіряємо, чи кнопка, на яку клікнули, вже активна
-			if (button.classList.contains('active')) {
-				return; // Якщо так, просто виходимо з функції і нічого не робимо
-			}
-
-			// Видаляємо клас 'active' з усіх кнопок табів
-			tabButtons.forEach(btn => btn.classList.remove('active'));
-			// Додаємо клас 'active' до поточної кнопки
-			button.classList.add('active');
-
-			// Видаляємо клас 'active' з усіх блоків контенту
-			tabContents.forEach(content => content.classList.remove('active'));
-
-			// Отримуємо ID контенту, який потрібно показати
-			const targetTabId = button.dataset.tab; // Використовуємо data-tab атрибут
-			const targetTabContent = document.getElementById(targetTabId);
-
-			// Додаємо клас 'active' до відповідного блоку контенту
-			if (targetTabContent) {
-				targetTabContent.classList.add('active');
-			}
-		});
-	});
-
 });
 
